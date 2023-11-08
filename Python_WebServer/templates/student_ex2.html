@@ -14,6 +14,7 @@
                 <th>주소</th>
             </thead>
             <tbody>
+                <!--for-->
                 {%for student in data.students %}
                     <tr>
                         <td>{{student.student_id}}</td>
@@ -24,6 +25,54 @@
                 {%endfor%}
             </tbody>
         </table>
+        <!--Macros-->
+        {%macro input(name, value='', type='text', size=20)-%}
+            <input type="{{type}}" name="{{name}}" value="{{value|e}}" size="{{size}}">
+        {%-endmacro%}
+        <p>username:{{input('username')}}</p>
+        <p>password:{{input('password', type='password')}}</p>
+
+        <!--call-->
+        {% macro render_dialog(title, class='dialog') -%}
+            <div class="{{ class }}">
+                <h2>{{ title }}</h2>
+                <div class="contents">
+                    {{ caller() }}
+                </div>
+            </div>
+        {%-endmacro%}
+        {%call render_dialog('Hello World')%}
+            This is a simple dialog rendered by using a macro and a call block.
+        {%endcall%}
+        <br/><br/>
+
+        <!--filters-->
+        {%filter upper%}
+            This text becomes uppercase
+        {%endfilter%}
+        <br/><br/>
+
+        <!--Assignments-->
+        {%set iterated=false%}
+        {%for item in seq%}
+            {{item}}
+            {%set iterated=true%}
+        {%endfor%}
+        {%if not iterated%} did not iterate {%endif%}
+        <br/><br/>
+
+        <!--Block Assignments-->
+        {%set navigation%}
+        <ul>
+            <li><a href="/">Index<a>
+            <li><a href="/download">Download<a>
+        </ul>
+        {%endset%}
+        {{navigation}}
+        {{navigation}}
+
+
+        <!--if-->
         {%if data.show_footer%}
         <h1>인공지능 뽀개기 수강신청 프로그램입니다.</h>
         {%endif%}
