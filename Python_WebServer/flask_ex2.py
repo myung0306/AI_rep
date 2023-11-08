@@ -1,4 +1,5 @@
 import flask
+from value_object import Student
 
 app=flask.Flask(__name__)
 
@@ -12,7 +13,13 @@ def sugang():
 
 @app.route("/student")
 def student():
-    return flask.render_template("student.html")
+    students=[]
+    for i in range(5):
+        students.append(
+            Student(f"S{i:07d}", f"학생이름-{i:04d}", 20+i%10, f"학생주소-{i:04d}")
+        )
+    data={"students":students, "show_footer": True}
+    return flask.render_template("student_ex2.html", data=data)
 
 @app.route("/teacher")
 def teacher():
