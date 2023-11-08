@@ -1,5 +1,5 @@
 import flask
-from value_object import Student
+from database import select_student
 
 app=flask.Flask(__name__)
 
@@ -13,9 +13,13 @@ def sugang():
 
 @app.route("/student")
 def student():
-    students=[]
-    data={"students":students, "show_footer": True}
-    return flask.render_template("student_ex3.html", data=data)
+    params = flask.request.args.to_dict()
+    limit = int(params.get("limit", 10))
+    offset = int(params.get("offset", 0))
+
+    result = select_student(limit, offset)
+    data = {"students": result[3], "show_footer": True}
+    return flask.render_template("student.html", data=data)
 
 @app.route("/teacher")
 def teacher():
