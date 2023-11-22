@@ -131,7 +131,6 @@ arr1=np.array(range(1, 7))
 for idx, i in np.ndenumerate(arr1):
     print(idx, i)
     
-arr2=np.array([[1, 2, 3], [4, 5, 6]])
 for idx, i in np.ndenumerate(arr2):
     print(idx, i)
 
@@ -148,5 +147,7 @@ print(arr2.shape)
 
 arr3=arr1.reshape(2, 3, 4)
 print(arr3.shape)
+
+
         
 
